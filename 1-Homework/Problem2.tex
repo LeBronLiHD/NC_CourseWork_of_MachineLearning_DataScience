@@ -1,0 +1,165 @@
+\section*{Problem 2 (60 pts)}
+
+In this problem we will implement the linear regression model and apply it to a simple problem. The data we use here is the The Cleveland Heart Disease Dataset\footnote{\url{https://archive.ics.uci.edu/ml/datasets/heart+disease}}. 
+
+\subsection*{Part 1. Derivation (20 pts)}
+\begin{enumerate}
+    \item \textbf{(3 pts)} Derive the derivatives of the logistic function (sigmoid function):
+    \begin{align*}
+        \sigma(x) = \frac{1}{1+e^{-x}}
+    \end{align*}
+    \begin{soln}{height=14cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+    
+    \clearpage
+    \item \textbf{(7 pts)} In logistic regression, given the dataset $D=\left\{ \rvx_n, t_n \right\}$, where $t_n \in \{-1,1\}$. We use the sigmoid function $\sigma(\cdot)$ to model the probability~(likelihood) of a data sample belonging to the ``\textit{positive class}'', i.e., $t_n=1$: 
+    \begin{align*}
+        P(t_n=1|\rvx_n, \rvw, w_0) &= \sigma \left(\rvw^\top \rvx_n + w_0\right) = \frac{1}{1+e^{-\left(\rvw^\top \rvx_n + w_0\right)}}.
+    \end{align*}
+    Since $P(t_n=1|\rvx_n, \rvw, w_0) + P(t_n=-1|\rvx_n, \rvw, w_0) =1$, we can write the likelihood in a unified form (details are omitted): 
+    \begin{align*}
+        P(t_n|\rvx_n, \rvw, w_0) &= \sigma \left(t_n (\rvw^\top \rvx_n + w_0)\right)
+    \end{align*}
+    The loss function of logistic regression is the negative log-likelihood function of the dataset, which is defined as:
+    \begin{align*}
+        \gL &= -\sum_{n=1}^{N} \log \sigma\left( t_n (\rvw^\top \rvx_n + w_0) \right).
+    \end{align*}
+    Please derive the derivatives of the loss function $\gL$.
+    
+    \textbf{Tips:} You can re-write the $\rvw^\top \rvx_n + w_0$ part into a simple dot product as in Problem~1. 
+
+    \begin{soln}{height=12cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+    
+    \clearpage
+    \item \textbf{(10 pts)} Show that the loss function of logistic regression is a convex function, where the function is defined as:
+    \begin{align*}
+        \gL(\rvw, w_0) &= -\sum_{n=1}^{N} \log \sigma\left( t_n (\rvw^\top \rvx_n + w_0) \right).
+    \end{align*}
+    \textbf{Tips:}
+    \begin{itemize}
+        \item The definition of a convex function:
+        \begin{align*}
+            f(\lambda x + (1-\lambda)y) \leq \lambda f(x) + (1-\lambda) f(y), \quad \forall \lambda 
+        \end{align*}
+        \item The addition of two convex functions is also convex.
+    \end{itemize}
+    
+    \begin{soln}{height=16cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+\end{enumerate}        
+
+
+\clearpage
+
+
+\subsection*{Part 2. Implementation (15 pts)}
+Below is a list of classes and functions we will implement. Implement wherever the code template says \texttt{pass}. Reading \texttt{tests.py} might help you debug your implementation. 
+
+\begin{itemize}
+    \item {\bf LogisticReg.fit($\mX$, $\rvt$)} ({\bf 12 pts}): The logistic regression model fits to the training set ($\mX$, $\rvt$), i.e., finding the optimal weight vector $w$.
+    \begin{itemize}
+        \item {\bf LogisticReg.compute\_loss($\mX$, $\rvt$)} ({\bf 4 pts}): Compute and return the (average) loss value given a training batch. Available unit tests: \texttt{TestLoss}. 
+        \item {\bf LogisticReg.compute\_gradient($\mX$, $\rvt$)} ({\bf 6 pts}): Compute and return the (average) gradient value given a training batch. Available unit tests: \texttt{TestGrad}. 
+        \item {\bf LogisticReg.update(grad, lr)} ({\bf 2 pts}): Update the weight vector given the gradient \textbf{grad} and the learning rate \textbf{lr}. Available unit tests: \texttt{TestUpdate}. 
+    \end{itemize}
+    
+    \item {\bf LogisticReg.predict($\mX$)} ({\bf 3 pts}): The prediction the logistic regression model makes using the learned weights. Available unit tests: \texttt{TestPredict}.
+    
+\end{itemize}
+
+% \textbf{Tips}:
+% \begin{itemize}
+%     \item LinearMap layer weights should be initialized using Xavier Initialization:
+%         \[W^k_{i,j}\sim\texttt{Uniform}(-b,b) \;,\quad b=\sqrt{\frac{6}{m+n}}\]
+%      where $k$, $i$, $j$ are indices for network layer and nodes, $m$ and $n$ are the input and output dimension;
+%     \item Special practices might be necessary for the numerical stability of the Softmax function;
+%   % \item You can start with these hyperparamters. Learning rate: 0.001, $\alpha$: 0.9 (parameter for momentum), batch size: 128. Other hyperparameters very likely could give better performance. Hyperparameters should be consistent when you compare different network architectures. 
+% \end{itemize}
+
+% This is what the TwoLayer network would look like:\\
+% \includegraphics[scale=0.5]{images/onetask.png}
+
+\pagebreak
+\subsection*{Part 3. Experiments (25 pts)}
+In this section, we will train and test the logistic regression model we implemented, and evaluate its performance. 
+Observe and pre-process the data before you apply your model to it. In this section, you don't need to submit the code, only report the results you get. 
+
+\begin{enumerate}
+    \item \textbf{(2 pts)} Pre-process the data following the guide. Explain the difference between \texttt{fit\_transform} and \texttt{transform} method of the \texttt{StandardScaler} in sklearn.
+    \begin{soln}{height=18cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+    
+    \clearpage
+    \item \textbf{(10 pts)} Train the logistic regression model with \textbf{lr}=0.1, 0.01, 0.001, 0.0001 for 10000 epochs. Report the following:
+    \begin{itemize}
+        \item The loss trajectory of the training and testing set;
+        \item The accuracy trajectory of the training and testing set.
+    \end{itemize} 
+    
+    Write down your conclusion in the solution panel.
+    
+    \begin{soln}{height=19cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+    \clearpage
+    \item \textbf{(6 pts)} Report the performances of the logistic regression model, evaluated under the metrics other than simple accuracy, including
+    \begin{itemize}
+        \item Confusion Matrix
+        \item F1-Score
+        \item AUC-ROC curve
+    \end{itemize}
+    Explore the relationship between the threshold (we decide a sample belongs to the positive class if $p>\text{threshold}$) and the different metrics.
+    \begin{soln}{height=17cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+    \clearpage
+    \item \textbf{(7 pts)} Use the sklearn library to try out other classification models and compare them with the logistic regression model.
+    \begin{soln}{height=19cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+    \clearpage
+    \item \textbf{(5 pts BONUS)} Do some further analysis on your model, try to improve it with any tricks you can think of.
+    
+    \textbf{Tips:}
+    \begin{itemize}
+        \item l2-regularization to overcome the problem of overfitting
+        \item Newton's method to help the logistic regression model converge faster
+    \end{itemize}
+    \begin{soln}{height=19cm}
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+        %%%%%%%%%%%%%%%%%%%% YOUR ANSWER HERE
+    \end{soln}
+\end{enumerate}           
+
+
+
+
+

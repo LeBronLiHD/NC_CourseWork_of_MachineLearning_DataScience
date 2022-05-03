@@ -4,6 +4,9 @@ __pycache__/
 *$py.class
 
 0-Zips/
+data/
+model/
+.ipynb_checkpoints/
 
 # C extensions
 *.so

@@ -1,0 +1,227 @@
+\section{Written Questions (50 points)}
+\begin{notebox}
+In this section, you will work through a number of problems covering the topics of Neural Networks, Convolutional Neural Networks, Auto-Encoders, and Generative Adversarial Networks. At the time when this homework is released, some of the contents have not been covered in the lecture. You don't need to worry about that and you can come back to finish the homework once we cover them in the lecture.
+Here is an example of a question. Use the command '\textbf{\textbackslash CorrectChoice}' to select the correct answer. 
+
+\begin{questions}
+    \question[0] Assignment turned in late without prior approval will incur a penalty. How much is the penalty? Up to 3 days: \underline{\hspace{0.5cm}} After 3 days: \underline{\hspace{0.5cm}}. 
+    
+    \textbf{Select one:}
+    \begin{checkboxes}
+        \choice 10\%, 60\%
+        \choice 30\%, 60\%
+        \CorrectChoice 30\%, 100\%
+        \choice 50\%, 100\%
+    \end{checkboxes}
+\end{questions}
+\end{notebox}
+
+
+\subsection{Neural Network Basics (14 points)}
+
+\begin{questions}
+    \question[2] In most of the cases, for regression problem, what is the activation function for the output layer?
+    \begin{checkboxes}
+        \choice sigmoid function
+        \choice tanh function
+        \choice ReLU function
+        \choice None of them above
+    \end{checkboxes}
+    
+    \question[2] For the binary classification problem, what's the distribution we assume the output variable has? What's the activation function we use for the output layer?
+    \begin{checkboxes}
+        \choice Gaussian; sigmoid function
+        \choice Gaussian; identity function ($f(x)=x$)
+        \choice Bernoulli; sigmoid function
+        \choice Bernoulli; identity function ($f(x)=x$)
+    \end{checkboxes}
+    
+    \question[2] Which of the following statement is true about the gradient descent?
+    \begin{checkboxes}
+        \choice Gradient descent is the only way we can train a neural network.
+        \choice With a learning rate that's small enough, gradient descent will always find the global minimum if infinite steps of updates are allowed.
+        \choice Stochastic gradient descent helps the model escape from the local minimum by adding noises to the loss function. 
+        \choice To perform gradient descent, we only need to compute the forward pass for a neural network.
+    \end{checkboxes}
+    
+    \question[2] Which of the following statement is true about the weight penalty regularization for neural networks?
+    \begin{checkboxes}
+        \choice Applying L1 regularization to a layer of the neural network will likely result in a 0 bias term.
+        \choice Regularization will increase the representative power of the neural network, which is helpful to the model that suffers from underfitting.
+        \choice When applying the L2 regularization to a layer of the network with SGD optimizer, it's equivalent to decaying the weights by a certain multiplicative factor at each step. 
+        \choice L2 regularization will lead to sparse weights.
+    \end{checkboxes}
+    
+    \question[2] Which of the following statement is true about early stopping for neural networks?
+    \begin{checkboxes}
+        \choice We should stop training the model when we observe an increase of the training loss. 
+        \choice We should stop training the model when we observe that the training loss keeps going up for certain epochs.
+        \choice We should stop training the model when we observe an increase of the validation loss. 
+        \choice We should stop training the model when we observe that the validation loss keeps going up for certain epochs.
+    \end{checkboxes}
+    
+    \question[2] Which of the following statement is true about the Dropout layer in neural networks?
+    \begin{checkboxes}
+        \choice For dropout probability $p=0.3$, we randomly mask the weights for 30\% of the times. 
+        \choice For dropout probability $p=0.3$, we randomly mask the weights for 70\% of the times.
+        \choice For dropout probability $p=0.3$, we randomly mask the activations for 30\% of the times.
+        \choice For dropout probability $p=0.3$, we randomly mask the 30\% of the layers during training.
+    \end{checkboxes}
+    
+    \clearpage
+    \question[2] Suppose a layer generates the output $[0.3, 0, 1, 0.7, 0, 0.2]$ after the ReLU activation. The dropout layer \textbf{Dropout(p=0.2)} randomly samples a mask $[1, 1, 0, 1, 1, 0]$. What's the result of the ``dropped-out'' activation during training and testing (according to the original paper of Dropout\footnote{\url{https://jmlr.org/papers/volume15/srivastava14a/srivastava14a.pdf}})?
+    \begin{checkboxes}
+        \choice train=$[0.3, 0, 0, 0.7, 0, 0]$, test=$[0.24, 0, 0.8, 0.56, 0, 0.16]$
+        \choice train=$[0.3, 0, 0, 0.7, 0, 0]$, test=$[0.3, 0, 1, 0.7, 0, 0.2]$
+        \choice train=$[0.3, 0, 0, 0.7, 0, 0]$, test=$[0.06, 0, 0.2, 0.14, 0, 0.04]$
+        \choice train=$[0.3, 0, 1, 0.7, 0, 0.2]$, test=$[0.3, 0, 0, 0.7, 0, 0]$
+    \end{checkboxes}
+\end{questions}
+
+\subsection{Convolutional Neural Networks (14 points)} 
+\begin{questions}
+    \question[2] Suppose we have two matrices: 
+    \begin{align*}
+        \mA &= \begin{bmatrix}
+        0 & 1 & 2\\
+        3 & 4 & 5\\
+        6 & 7 & 8
+        \end{bmatrix}\\
+        \mB &= \begin{bmatrix}
+        0 & 1 \\
+        2 & 3
+        \end{bmatrix}
+    \end{align*}
+    What's the result of convolving these two matrices?
+    \begin{checkboxes}
+        \choice $\begin{bmatrix}
+        0 & 1 \\
+        2 & 3
+        \end{bmatrix}$
+        \choice $\begin{bmatrix}
+        0 & 0 & 1\\
+        0 & 5 & 11\\
+        6 & 23 & 29
+        \end{bmatrix}$
+        \choice $\begin{bmatrix}
+        19 & 25\\
+        37 & 43
+        \end{bmatrix}$
+        \choice $\begin{bmatrix}
+        0 & 3 & 3\\
+        8 & 18 & 14\\
+        8 & 19 & 11
+        \end{bmatrix}$
+    \end{checkboxes}
+    
+    \clearpage
+    \question[3] Consider the following statements with respect to the pooling layer:
+    \begin{enumerate}
+        \item It reduces computational complexity
+        \item It increases image resolution
+        \item It does not have trainable parameters
+        \item It is always has to be followed by an activation layer
+    \end{enumerate}
+    Which among the following options represents the statement(s) from above that are not true with respect to the pooling layer?
+    \begin{checkboxes}
+        \choice Only 2
+        \choice Both 2 and 3
+        \choice 2, 3 and 4
+        \choice 1,2 and 3
+    \end{checkboxes}
+    
+    \question[3] 2-D Convolutional layers expect inputs of shape (batch\_size, H, W, C), where C is the number of channels. 
+    Suppose you are passing 5 28x28 full-color images through a Conv2D layer with 14 filters each with 4x4 kernel, a stride of (1,1) with padding='same'. What is the input dimensions and the output dimensions?
+    
+    \textbf{NOTE}: The options are of the format: Input Dimensions $\rightarrow$ Output Dimensions
+
+    \begin{checkboxes}
+        \choice (5,3,3,1) $\rightarrow$ (5,28,28,7)
+        \choice (5,28,28,3) $\rightarrow$ (5,28,28,14)
+        \choice (5,28,28,1) $\rightarrow$ (5,7,7,14)
+        \choice (5,28,28,3) $\rightarrow$ (5,7,7,14)
+    \end{checkboxes}
+    
+    \question[3] During backpropagation, the gradient from the next layer is passed back to only that neuron which achieved the max during max-pooling at the forward pass. All other neurons get zero gradient.
+
+    \begin{checkboxes}
+        \choice TRUE
+        \choice FALSE
+    \end{checkboxes}
+    
+    \question[3] Which of the following statements about CNNs is \textit{\textbf{false}}?
+    
+    \begin{checkboxes}
+        \choice CNNs are generally better than MLPs dealing with image data since MLPs cannot learn pixel dependencies present in the images.
+        \choice In CNNs, the number of parameters to be trained is significantly lower than the MLPs, therefore reducing the chance of overfitting.
+        \choice Pooling layers are usually applied before the activation function.
+        \choice Convlutional layers with 'padding=same' and 'strides=1' will not change the height and width of the feature map.
+    \end{checkboxes}
+\end{questions}
+
+\subsection{Auto Encoders (10 points)} 
+\begin{questions}
+    \question[2] Which of the following statements about the internal representations of a neural network is true?
+    
+    \begin{checkboxes}
+        \choice The representation space near the output layer preserves more information than that near the input layer. 
+        \choice The representation space near the output layer preserves more about the high-level information that's related to the downstream task. 
+        \choice The amount of information preserved in the network first goes down, and then goes up. The layer in the middle forms the ``information bottleneck''.
+        \choice The representation space yielded near the output layer of a neural network will be more generalizable, i.e., more suitable for other downstream tasks.
+    \end{checkboxes}
+    
+    \question[3] Suppose we have an encoder network $\gE$, a decoder network $\gD$, and a dataset $\{\vx_1, \vx_2, \cdots, \vx_n\}$, where each data point is a $d$-dimensional vector. Please write down the $l$2-loss function for the Auto Encoder $\gE(\gD(\cdot))$. 
+    
+    \begin{soln}{height=3cm}
+    %%%%%%%%% YOUR SOLUTION HERE %%%%%%%
+    \end{soln}
+    
+    \question[2] Which of the following statements about the vanilla autoencoder is true? (Select all that apply)
+    
+    \begin{checkboxes}
+        \choice In Auto Encoder, the dimension $d^\prime$ of the representation yielded after the encoder can only be smaller than the original data's dimension $d$.
+        \choice Generally, we don't have the control over the representation spaces yielded by the encoder, which restricts the use of Auto Encoder as a generative method.
+        \choice The Auto Encoder has the problem of generalization. It can generate the data that has been seen during training, but cannot generate new data well.
+    \end{checkboxes}
+    
+    \question[3] Which of the follow statements about the autoencoders is \textit{\textbf{false}}?
+    
+    \begin{checkboxes}
+        \choice The Sparse Auto Encoder (SAE) wants the weights of the encoder and decoder to be sparse.
+        \choice The Denoise Auto Encoder (DAE) can have more robust representation generated by the encoder network.
+        \choice The Variational Auto Encoder (VAE) has two losses to be optimized at the same time. The first loss is the reconstruction loss, and the second loss makes sure the latent representation is close to the normal distribution.
+    \end{checkboxes}
+
+\end{questions}
+
+\clearpage
+\subsection{Generative Adversarial Networks (12 points)} 
+\begin{questions}
+    \question[6] Which of the following statements about the GANs is true? Select all that apply.
+    
+    \begin{checkboxes}
+        \choice During training, each time the generator generates a batch of fake data, we use the fake data and the true data to train the discriminator until it converges.
+        \choice In GAN training, we can jointly train the discriminator and the generator with only one forward pass and one backward pass.
+        \choice Mode collapse of GANs refers to the phenomenon that the generator keeps generating very similar data. Although the generated data is very verisimilitude, it's quite against the original motivation of GANs.
+        \choice In the style transfer application, we should find a paired dataset where each data sample has multiple different styles.
+        \choice The GANs are implicit generative model, since they don't assign the exact probability to a data sample of being a true data. 
+    \end{checkboxes}
+
+    \question[6] Prove that when the discriminator is optimal, maximizing the loss function $\gJ(D^\star, G)$ is equivalent to minimizing the JS-Divergence between the true data distribution $P_\text{data}$ and the generated data distribution $P_G$.
+    
+    \textbf{NOTE}: the loss function of the vanilla GAN is defined and represented as:
+    \begin{align*}
+        \gJ(G,D) 
+        &= \E_{\vx \sim P_{\text{data}}}[-\log D(\vx)]+\E_{\vz}[-\log (1-D(G(\vz)))]\\
+        &= -\int\left[P_{\text {data }}(\vx) \log D(\vx)+P_{G}(\vx) \log (1-D(\vx=G(\vz)))\right] d \vx
+    \end{align*}
+    The optimal discriminator function is the function whose value is optimal everywhere: 
+    \begin{align*}
+        D^\star(x) = [D(x)]^\star
+    \end{align*}
+    
+    \begin{soln}{height=7cm}
+    %%%%%% YOUR ANSWER HERE %%%%%%
+    \end{soln}
+    
+\end{questions}

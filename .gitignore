@@ -6,7 +6,12 @@ __pycache__/
 0-Zips/
 data/
 model/
+models/
+log/
 .ipynb_checkpoints/
+*.h5
+*.pt
+*.pkl
 
 # C extensions
 *.so

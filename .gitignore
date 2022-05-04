@@ -6,7 +6,7 @@ __pycache__/
 0-Zips/
 data/
 model/
-models/
+# models/
 log/
 .ipynb_checkpoints/
 *.h5

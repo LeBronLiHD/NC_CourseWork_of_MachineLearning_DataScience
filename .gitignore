@@ -12,6 +12,7 @@ log/
 *.h5
 *.pt
 *.pkl
+wandb/
 
 # C extensions
 *.so
